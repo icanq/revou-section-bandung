@@ -34,6 +34,24 @@ server.get("/products", (req, res) => {
 	});
 });
 
+// request params
+// untuk mengambil data berdasarkan id, alangkah baiknya untuk mencari idnya itu ditaro idnya lewat params, gimana caranya
+server.get("/products/:id", (request, response) => {
+	const { id } = request.params;
+
+	// filter data berdasarkan id yang masuk lewat query params
+	// karena data masih belum dari database, kita pake logic js sederhana aja
+	fs.readFile("./data/products.json", (error, data) => {
+		if (error) response.send("Gagal dalam pembacaan data");
+		const products = JSON.parse(data);
+		const product = products.find((product) => product.id === parseInt(id));
+		if (!product) {
+			response.status(404).send("Product not found");
+		}
+		response.status(200).send(product);
+	});
+});
+
 // tangkap semua request/permintaan ke rute yang tidak dikenal
 server.all("*", (req, res) => {
 	res.status(404).send("404 routes not found");
