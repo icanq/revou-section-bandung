@@ -1,20 +1,38 @@
 [
-	{
-		"id": 1,
-		"name": "Mirasoul Flight Unit",
-		"price": 132000,
-		"catalog": "Gundam Accessories"
-	},
-	{
-		"id": 2,
-		"name": "Gundam Aerial",
-		"price": 320000,
-		"catalog": "Gundam - Witch From Mercury"
-	},
-	{
-		"id": 3,
-		"name": "Gundam Barbatos",
-		"price": 280000,
-		"catalog": "Gundam - Iron Blood Orphans"
-	}
+  {
+    "id": 1,
+    "name": "Mirasoul Flight Unit",
+    "price": 132000,
+    "catalog": "Gundam Accessories"
+  },
+  {
+    "id": 2,
+    "name": "Gundam Aerial",
+    "price": 320000,
+    "catalog": "Gundam - Witch From Mercury"
+  },
+  {
+    "id": 3,
+    "name": "Gundam Barbatos",
+    "price": 280000,
+    "catalog": "Gundam - Iron Blood Orphans"
+  },
+  {
+    "id": 4,
+    "name": "Gundam Aerial Rebuild",
+    "price": "356000",
+    "catalog": "Gundam - Witch From Mercury"
+  },
+  {
+    "id": 5,
+    "name": "Gundam Aerial Rebuild 2",
+    "price": "355000",
+    "catalog": "Gundam - Witch From Mercury"
+  },
+  {
+    "id": 6,
+    "name": "Gundam Aerial Rebuild 3",
+    "price": "356000",
+    "catalog": "Gundam - Witch From Mercury"
+  }
 ]

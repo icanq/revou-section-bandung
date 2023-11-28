@@ -15,6 +15,12 @@ const PORT = 3000;
 // pakai cors biar bisa share resource antar backend dan frontend
 server.use(cors());
 
+// middleware dari express agar aplikasi express bisa membaca data dari request body
+// untuk memakai middleware di express kalian pakai kode
+// server.use(<middlewarenya>)
+server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
+
 // handle request di main routes ("/")
 server.get("/", function (request, response) {
 	// aku gamau baca detail requestnya aku mau langsung
@@ -49,6 +55,40 @@ server.get("/products/:id", (request, response) => {
 			response.status(404).send("Product not found");
 		}
 		response.status(200).send(product);
+	});
+});
+
+server.post("/products", (req, res) => {
+	console.log(req.body);
+	// deconstruct object dari request body
+	const { name, price, catalog } = req.body;
+
+	// kalau kalian pake SQL kan nanti eksekusinya pake query
+	// INSERT INTO <namatabelnya> VALUES ($1, $2, $3) [NAME, PRICE, CATALOG]
+	// kalau skrg kita masukinnya ke json dulu aja
+	fs.readFile("./data/products.json", (err, data) => {
+		if (err) res.send("Gagal dalam membaca json");
+		const products = JSON.parse(data);
+		const newProduct = {
+			id: products.length + 1,
+			name: name,
+			price: price,
+			catalog: catalog,
+		};
+		// 1, 2, 3, Push (4)
+		products.push(newProduct);
+
+		fs.writeFile(
+			"./data/products.json",
+			JSON.stringify(products, "", 2),
+			(err) => {
+				if (err) res.status(400).send("Gagal dalam memasukan data");
+				res.status(201).send({
+					message: "sukses dalam menambahkan data",
+					data: newProduct,
+				});
+			}
+		);
 	});
 });
 
