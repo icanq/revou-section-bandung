@@ -21,6 +21,31 @@ server.use(cors());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 
+const loggerMiddleware = (req, res, next) => {
+	// '[date] - request method - route - status'
+	const now = new Date();
+	const formattedTime = now.toLocaleDateString();
+	const method = req.method;
+	const url = req.url;
+	const status = res.statusCode;
+	console.log(`[${formattedTime}] ${method} ${url} - ${status}`);
+	next();
+};
+
+// const authenticationMiddleware = (req, res, next) => {
+// 	// ambil token dari req.headers
+// 	// const { token } = req.headers;
+// 	// bandingin token yang ada dari headers atau dari request, dengan token yang ada di database
+// 	// kalau tokennya beda -> not authenticated | bodong -> res.status(401).send("youre not authenticated")
+// 	// kalau tokennya sama -> next()
+// };
+
+// untuk memakai middleware yang diterapkan seluruh aplikasi
+server.use(loggerMiddleware);
+
+// untuk pakai middleware yang diterapkan hanya untuk rute tertentu saja kalian bisa langsung selipkan middleware tersebut pada rute kalian, contoh
+// server.get("/iniygdipakeinmiddleware", loggerMiddleware, (req,res) => {})
+
 // handle request di main routes ("/")
 server.get("/", function (request, response) {
 	// aku gamau baca detail requestnya aku mau langsung
