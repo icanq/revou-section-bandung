@@ -1,38 +1,30 @@
 [
-  {
-    "id": 1,
-    "name": "Mirasoul Flight Unit",
-    "price": 132000,
-    "catalog": "Gundam Accessories"
-  },
-  {
-    "id": 2,
-    "name": "Gundam Aerial",
-    "price": 320000,
-    "catalog": "Gundam - Witch From Mercury"
-  },
-  {
-    "id": 3,
-    "name": "Gundam Barbatos",
-    "price": 280000,
-    "catalog": "Gundam - Iron Blood Orphans"
-  },
-  {
-    "id": 4,
-    "name": "Gundam Aerial Rebuild",
-    "price": "356000",
-    "catalog": "Gundam - Witch From Mercury"
-  },
-  {
-    "id": 5,
-    "name": "Gundam Aerial Rebuild 2",
-    "price": "355000",
-    "catalog": "Gundam - Witch From Mercury"
-  },
-  {
-    "id": 6,
-    "name": "Gundam Aerial Rebuild 3",
-    "price": "356000",
-    "catalog": "Gundam - Witch From Mercury"
-  }
+	{
+		"id": 1,
+		"name": "Mirasoul Flight Unit",
+		"price": 132000,
+		"imageUrl": "https://static.wikia.nocookie.net/gunplabuilders/images/2/21/HGTWFM-Mirasoul-Flight-Unit-box.jpg/revision/latest/scale-to-width-down/1000?cb=20230114125524",
+		"catalog": "Gundam Accessories"
+	},
+	{
+		"id": 2,
+		"name": "Gundam Aerial",
+		"price": 320000,
+		"imageUrl": "https://static.wikia.nocookie.net/gundam/images/f/fa/Gundam_Aerial_Front.png/revision/latest?cb=20220630033122",
+		"catalog": "Gundam - Witch From Mercury"
+	},
+	{
+		"id": 3,
+		"name": "Gundam Barbatos",
+		"price": 280000,
+		"imageUrl": "https://static.wikia.nocookie.net/gundam/images/8/8e/ASW-G-08_Gundam_Barbatos_1st_Form_%28Front%29.png/revision/latest/scale-to-width-down/300?cb=20181007005623",
+		"catalog": "Gundam - Iron Blood Orphans"
+	},
+	{
+		"id": 4,
+		"name": "Gundam Aerial Rebuild",
+		"price": "356000",
+		"imageUrl": "https://static.wikia.nocookie.net/gundam/images/f/f0/Gundam_Aerial_Rebuild_Front.png/revision/latest?cb=20230108103719",
+		"catalog": "Gundam - Witch From Mercury"
+	}
 ]
