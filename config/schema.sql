@@ -31,3 +31,11 @@ INSERT INTO Product (name, price, imageUrl, catalog_id, created_at) VALUES (
   1,
   '2023-11-30'
 );
+
+INSERT INTO Product (name, price, imageUrl, catalog_id, created_at) VALUES (
+  'undam Aerial',
+  320000,
+  'https://static.wikia.nocookie.net/gundam/images/f/fa/Gundam_Aerial_Front.png/revision/latest?cb=20220630033122',
+  2,
+  '2023-11-30'
+);

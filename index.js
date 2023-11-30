@@ -60,33 +60,60 @@ server.get("/", function (request, response) {
 });
 
 // dari rute ini harapannya bisa mengirimkan data produk ke yang request data product
-server.get("/products", (req, res) => {
+server.get("/products", async (req, res) => {
 	// nanti proses logicnya itu ngambil data dulu dari database, lalu dikirim melaluli response, saat ini kita bakal pake data dari json dulu/fake data
 
 	// ambil data json dari /data/products.json
-	fs.readFile("./data/products.json", (error, data) => {
-		if (error) res.send("Gagal dalam pembacaan data");
-		const products = JSON.parse(data);
+	// fs.readFile("./data/products.json", (error, data) => {
+	// 	if (error) res.send("Gagal dalam pembacaan data");
+	// 	const products = JSON.parse(data);
+	// 	res.status(200).send(products);
+	// });
+
+	// sekarang kita bisa ambil data langsung dari db dengan menggunakan connection pool yang dibikin di config tadi
+	const connection = await connectionPool.getConnection();
+	try {
+		const [products] = await connection.query(`SELECT * FROM Product`);
+		console.log(products);
 		res.status(200).send(products);
-	});
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 // request params
 // untuk mengambil data berdasarkan id, alangkah baiknya untuk mencari idnya itu ditaro idnya lewat params, gimana caranya
-server.get("/products/:id", (request, response) => {
+server.get("/products/:id", async (request, response) => {
 	const { id } = request.params;
 
 	// filter data berdasarkan id yang masuk lewat query params
 	// karena data masih belum dari database, kita pake logic js sederhana aja
-	fs.readFile("./data/products.json", (error, data) => {
-		if (error) response.send("Gagal dalam pembacaan data");
-		const products = JSON.parse(data);
-		const product = products.find((product) => product.id === parseInt(id));
-		if (!product) {
+	// fs.readFile("./data/products.json", (error, data) => {
+	// 	if (error) response.send("Gagal dalam pembacaan data");
+	// 	const products = JSON.parse(data);
+	// 	const product = products.find((product) => product.id === parseInt(id));
+	// 	if (!product) {
+	// 		response.status(404).send("Product not found");
+	// 	}
+	// 	response.status(200).send(product);
+	// });
+
+	// ambil data product based on id yang masuk lewat request params
+	const connection = await connectionPool.getConnection();
+	try {
+		const [products] = await connection.query(
+			`SELECT * FROM Product WHERE id = ?`,
+			[id]
+		);
+		console.log(products);
+		if (!products.length) {
 			response.status(404).send("Product not found");
+		} else {
+			response.status(200).send(products);
 		}
-		response.status(200).send(product);
-	});
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 server.post("/products", (req, res) => {
