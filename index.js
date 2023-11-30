@@ -1,7 +1,13 @@
+// import dotenv agar process.env bisa dibaca oleh aplikasi
+require("dotenv").config();
+
 //  import package express, bukan http ya
 const express = require("express");
 // pake expressnya dengan cara ditampung disebuah variabel
 const server = express();
+
+// import mysql connection dari config/database.js
+const { connectionPool } = require("./config/database");
 
 // pura pura ambil data dari database padahal dari folder data
 const fs = require("fs");
