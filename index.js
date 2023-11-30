@@ -116,38 +116,52 @@ server.get("/products/:id", async (request, response) => {
 	}
 });
 
-server.post("/products", (req, res) => {
+server.post("/products", async (req, res) => {
 	console.log(req.body);
 	// deconstruct object dari request body
-	const { name, price, catalog } = req.body;
+	const { name, price, imageUrl, catalog_id } = req.body;
 
 	// kalau kalian pake SQL kan nanti eksekusinya pake query
 	// INSERT INTO <namatabelnya> VALUES ($1, $2, $3) [NAME, PRICE, CATALOG]
 	// kalau skrg kita masukinnya ke json dulu aja
-	fs.readFile("./data/products.json", (err, data) => {
-		if (err) res.send("Gagal dalam membaca json");
-		const products = JSON.parse(data);
-		const newProduct = {
-			id: products.length + 1,
-			name: name,
-			price: price,
-			catalog: catalog,
-		};
-		// 1, 2, 3, Push (4)
-		products.push(newProduct);
+	// fs.readFile("./data/products.json", (err, data) => {
+	// 	if (err) res.send("Gagal dalam membaca json");
+	// 	const products = JSON.parse(data);
+	// 	const newProduct = {
+	// 		id: products.length + 1,
+	// 		name: name,
+	// 		price: price,
+	// 		catalog: catalog,
+	// 	};
+	// 	// 1, 2, 3, Push (4)
+	// 	products.push(newProduct);
 
-		fs.writeFile(
-			"./data/products.json",
-			JSON.stringify(products, "", 2),
-			(err) => {
-				if (err) res.status(400).send("Gagal dalam memasukan data");
-				res.status(201).send({
-					message: "sukses dalam menambahkan data",
-					data: newProduct,
-				});
-			}
+	// 	fs.writeFile(
+	// 		"./data/products.json",
+	// 		JSON.stringify(products, "", 2),
+	// 		(err) => {
+	// 			if (err) res.status(400).send("Gagal dalam memasukan data");
+	// 			res.status(201).send({
+	// 				message: "sukses dalam menambahkan data",
+	// 				data: newProduct,
+	// 			});
+	// 		}
+	// 	);
+	// });
+
+	// insert data to database
+	const connection = await connectionPool.getConnection();
+	const date_now = new Date().toISOString().slice(0, 19).replace("T", " ");
+	try {
+		const createdProduct = await connection.query(
+			`INSERT INTO Product (name, price, imageUrl, catalog_id, created_at) VALUES (?, ?, ?, ?, ?)`,
+			[name, price, imageUrl, catalog_id, date_now]
 		);
-	});
+		console.log(createdProduct);
+		res.status(201).send(createdProduct);
+	} catch (error) {
+		console.log(error);
+	}
 });
 
 // tangkap semua request/permintaan ke rute yang tidak dikenal
